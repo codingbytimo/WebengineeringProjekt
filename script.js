@@ -109,10 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(gameLoop);
     }
 
-    canvas.addEventListener('click', () => {
+    canvas.addEventListener('click',  () => {
         bird.velocity = bird.lift;
     });
-
+    
+    window.addEventListener('keypress',  (e) => {
+        if (e.key === " ") {
+            bird.velocity = bird.lift;
+        }
+    });
+    
     window.addEventListener('resize', () => {
         draw();
     })
