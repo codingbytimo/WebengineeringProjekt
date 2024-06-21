@@ -8,11 +8,25 @@
 </head>
 <body>
     <h1>Flappy Bird</h1>
-    <canvas id="gameCanvas"></canvas>
     <script src="script.js"></script>
-
+    
+    <div id="loginForm">
+        <input type="text" id="name" placeholder="Your Name">
+        <button id="startGame">Spiel starten</button>
+    </div>
+    
     <div id="container">
         <img id="Bird" src="resources/FlappyBird.png" alt="FlappyBird">
+    </div>
+    
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="endScreen">
+        <h1>Spiel Ende</h1>
+        <p id="finalScore"></p>
+        <h2>Highscores</h2>
+        <ul id="highscoresList"></ul>
+        <button id="restartGame">Neustart</button>
     </div>
 
 </body>
