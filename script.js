@@ -8,16 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
+
+
     let bird = {
+        sprite: document.getElementById('Bird'),
         x: 50,
         y: 150,
-        width: 15,
-        height: 15,
+        width: 14,
+        height: 10,
         gravity: 0.5,
         lift: -10,
         velocity: 0
     };
 
+    // Initial Values
     let pipes = [];
     let frame = 0;
     let score = 0;
@@ -25,8 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pipeWidth = 40;
 
     function drawBird() {
-        ctx.fillStyle = 'yellow';
-        ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
+        ctx.drawImage(bird.sprite, bird.x, bird.y);
     }
 
     function drawPipes() {
@@ -41,44 +44,43 @@ document.addEventListener('DOMContentLoaded', () => {
         bird.velocity += bird.gravity;
         bird.y += bird.velocity;
 
+        // Block the bird from falling through
         if (bird.y + bird.height > canvas.height) {
             bird.y = canvas.height - bird.height;
             bird.velocity = 0;
         }
 
+        // Block the Bird from going through the ceiling
+        if (bird.y - bird.height < 0) {
+            bird.y = bird.height;
+        }
+
+        // All Pipes are moved to the left
         pipes.forEach(pipe => {
             pipe.x -= 2;
         });
 
         pipes = pipes.filter(pipe => pipe.x + pipeWidth > 0);
 
+
+        //Every 90th frame a new pipe is created
         if (frame % 90 === 0) {
             let pipeHeight = Math.floor(Math.random() * (canvas.height / 2));
             pipes.push({ x: canvas.width, y: 0, width: pipeWidth, height: pipeHeight });
         }
 
-        /*pipes.forEach(pipe => {
-            if (bird.x < pipe.x + pipeWidth && bird.x + bird.width > pipe.x &&
-                (bird.y < pipe.y + pipe.height || bird.y + bird.height > pipe.y + pipe.height + pipeGap)) {
-                reset();
-            }
-        });*/
-
         pipes.forEach(pipe => {
             if (bird.x > pipe.x && bird.x < pipe.x + pipeWidth) {
                 if (bird.y < pipe.height || bird.y + bird.height > pipe.height + pipeGap) {
                     reset();
-                } else if (!pipe.passed) {
+                } 
+                else if (!pipe.passed) {
                     // Der Vogel ist erfolgreich zwischen den Rohren durchgeflogen
                     pipe.passed = true; // Markiere das Rohr als passiert, um mehrfache Inkremente zu verhindern
                     score++;
                 }
             }
         });
-
-        if (frame % 90 === 0) {
-            //score++;
-        }
 
         frame++;
     }
@@ -102,23 +104,27 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.font = '20px Arial';
         ctx.fillText(`Score: ${score}`, 10, 25);
     }
-
+    
+    // Classical Game Loop
     function gameLoop() {
         update();
         draw();
         requestAnimationFrame(gameLoop);
     }
 
+    // Move Bird up if mouse clicked in canvas
     canvas.addEventListener('click',  () => {
         bird.velocity = bird.lift;
     });
     
+    // Move Bird up if Space is pressed
     window.addEventListener('keypress',  (e) => {
         if (e.key === " ") {
             bird.velocity = bird.lift;
         }
     });
     
+    // If windows is resizing, the window is newly drawn
     window.addEventListener('resize', () => {
         draw();
     })
