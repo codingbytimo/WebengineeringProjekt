@@ -52,11 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
         bird.velocity += bird.gravity;
         bird.y += bird.velocity;
 
+        // If Bird touches floor it's game over
         if (bird.y + bird.height / 2 > canvas.height) {
             gameOver = true;
             showEndScreen();
         }
         
+        // If Bird touches ceiling it's game over
         if (bird.y - bird.height / 2 < 0) {
             gameOver = true;
             showEndScreen();
@@ -76,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pipes.push({ x: canvas.width, y: 0, width: pipeWidth, height: pipeHeight });
         }
 
+        // Check if Bird passed or colided with pipe
         pipes.forEach(pipe => {
             if (bird.x > pipe.x && bird.x < pipe.x + pipeWidth) {
                 if (bird.y < pipe.height || bird.y + bird.height > pipe.height + pipeGap) {
