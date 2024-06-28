@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //Every 90th frame a new pipe is created
         if (frame % 90 === 0) {
             let pipeHeight = Math.floor(Math.random() * (canvas.height / 2));
-            pipes.push({ x: canvas.width, y: 0, width: pipeWidth, height: pipeHeight });
+            pipes.push({ x: 1000, y: 0, width: pipeWidth, height: pipeHeight });
         }
 
         // Check if Bird passed or colided with pipe

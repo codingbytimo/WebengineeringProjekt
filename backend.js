@@ -1,4 +1,6 @@
+const path = require('node:path');
 const express = require('express');
+const Eta = require('eta').Eta;
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 
@@ -8,11 +10,21 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(express.static('pages')); 
 
+const eta = new Eta({views: path.join(__dirname, "pages/") });
+
 // SQLite-Datenbank einrichten
 const db = new sqlite3.Database('./flappybird.db');
 
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS highscores (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, score INTEGER NOT NULL)");
+});
+
+app.get("/", (_req, res) => {
+    res.send(eta.render("./index.html"));
+});
+
+app.get("/game_page", (_req, res) => {
+    res.send(eta.render("./index.html"));
 });
 
 // Highscore speichern
