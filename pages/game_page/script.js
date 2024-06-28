@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let canvasWidth = window.innerWidth * 0.8;
     let canvasHeight = window.innerHeight * 0.8;
 
+    //Delta Time
+    let lastTime = 0; //Time before the 
+    let currentTime = 0;
+    let deltaTime = 0;
+    const maxFPS = 1000 / 120; // 1000 Milliseconds / 120 fps = refreshTime
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
@@ -34,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let score = 0;
     let gameOver = false;
     const pipeGap = 200;
-    const pipeWidth = 40;
+    const pipeWidth = 55;
 
     function drawBird() {
         ctx.drawImage(bird.sprite, bird.x, bird.y);
@@ -57,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gameOver = true;
             showEndScreen();
         }
-        
+
         // If Bird touches ceiling it's game over
         if (bird.y - bird.height / 2 < 0) {
             gameOver = true;
@@ -66,16 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // All Pipes are moved to the left
         pipes.forEach(pipe => {
-            pipe.x -= 2;
+            pipe.x -= 4;
         });
 
         pipes = pipes.filter(pipe => pipe.x + pipeWidth > 0);
 
 
-        //Every 90th frame a new pipe is created
-        if (frame % 90 === 0) {
+        //Every 100th frame a new pipe is created
+        if (frame % 100 === 0) {
             let pipeHeight = Math.floor(Math.random() * (canvas.height / 2));
-            pipes.push({ x: 1000, y: 0, width: pipeWidth, height: pipeHeight });
+            pipes.push({ x: 2000, y: 0, width: pipeWidth, height: pipeHeight });
         }
 
         // Check if Bird passed or colided with pipe
@@ -84,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (bird.y < pipe.height || bird.y + bird.height > pipe.height + pipeGap) {
                     gameOver = true;
                     showEndScreen();
-                } 
+                }
                 else if (!pipe.passed) {
                     // Der Vogel ist erfolgreich zwischen den Rohren durchgeflogen
                     pipe.passed = true; // Markiere das Rohr als passiert, um mehrfache Inkremente zu verhindern
@@ -129,34 +134,39 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.font = '20px Arial';
         ctx.fillText(`Score: ${score}`, 10, 25);
     }
-    
-    // Classical Game Loop
+
+    // Classical Game Loop with Delta Time
     function gameLoop() {
-        if (!gameOver) {
+        currentTime = new Date().getTime();
+        deltaTime = currentTime - lastTime;
+
+        if (!gameOver && deltaTime >= maxFPS) {
             update();
             draw();
-            requestAnimationFrame(gameLoop);
+            lastTime = currentTime
         }
+        requestAnimationFrame(gameLoop);
+
     }
 
     // Move Bird up if mouse clicked in canvas
-    canvas.addEventListener('click',  () => {
+    canvas.addEventListener('click', () => {
         bird.velocity = bird.lift;
     });
-    
+
     // Move Bird up if Space is pressed
-    window.addEventListener('keypress',  (e) => {
+    window.addEventListener('keypress', (e) => {
         if (e.key === " ") {
             bird.velocity = bird.lift;
         }
     });
-    
+
     // If windows is resizing, the window is newly drawn
     window.addEventListener('resize', () => {
         draw();
     })
 
-    startGameButton.addEventListener('click', function() {
+    startGameButton.addEventListener('click', function () {
         playerName = nameInput.value;
         if (playerName) {
             loginForm.style.display = 'none';
@@ -165,7 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    restartGameButton.addEventListener('click', function() {
+    
+    restartGameButton.addEventListener('click', function () {
         bird.y = 150;
         bird.velocity = 0;
         score = 0;
@@ -175,6 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
         gameLoop();
     });
 
+
+    // Send HTTP-Post Request to Server API with Name and Score as JSON to save it in the SQLite Database and return Promise
     function saveHighscore(name, score) {
         return fetch('/highscores', {
             method: 'POST',
@@ -185,6 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then(response => response.json());
     }
 
+    // Send HTTP-Get Request to Server API to get first Three best Highscores with Name and Score
     function fetchHighscores() {
         return fetch('/highscores')
             .then(response => response.json());

@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    background: linear-gradient(135deg, #70c5ce, #c3cfe2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,39 +10,34 @@ body {
 
 .container {
     text-align: center;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(198, 226, 222, 0.76);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
 }
 
-h1 {
-    font-size: 2.5px;
+h1.container {
+    font-size: 30px;
     margin-bottom: 20px;
     color: #333;
 }
 
-.link-list {
-    list-style: none;
-    padding: 0;
+.container-inner{
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.link-list li {
-    margin: 15px 0;
-}
-
-.link-list a {
+a{
+    color: #333;
     text-decoration: none;
-    font-size: 1.5em;
-    color: #007BFF;
-    padding: 10px 20px;
-    border: 2px solid #007BFF;
-    border-radius: 5px;
-    transition: all 0.3s ease;
 }
 
-.link-list a:hover {
-    background-color: #007BFF;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+img{
+    align-self: center;
+    height: 10px;
+    width: 15px;
 }
+

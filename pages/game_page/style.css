@@ -5,7 +5,7 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #70c5ce;
+    background: linear-gradient(135deg, #70c5ce, #c3cfe2);
     font-family: Arial, sans-serif;
 }
 
@@ -14,14 +14,48 @@ h1 {
 }
 
 canvas {
-    border: 2px solid #fff;
-}
-
-#Bird {
+    border-radius:1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(5px);
 }
 
 #loginForm, #endScreen {
     display: none;
     flex-direction: column;
     align-items: center;
+    
+}
+
+button {
+    margin: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 5px;
+    outline: none;
+    color: black;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    box-shadow: 5px 5px 5px -3px #000000;
+}
+
+#name{
+    margin: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 5px;
+    outline: none;
+    color: black;
+    transition-duration: 0.4s;
+
+}
+
+#name::placeholder{
+    color: black;
+}
+
+#name:hover{
+    box-shadow: 5px 5px 5px -3px #000000;
 }
