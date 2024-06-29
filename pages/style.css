@@ -3,8 +3,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    margin: 30px;
+    padding: 10px;
     font-family: 'Arial', sans-serif;
 }
 
@@ -12,6 +12,7 @@ body {
     text-align: center;
     background: rgba(198, 226, 222, 0.76);
     padding: 30px;
+    margin: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -25,19 +26,75 @@ h1.container {
     color: #333;
 }
 
-.container-inner{
+.container-inner {
     text-align: center;
     margin-bottom: 30px;
 }
 
-a{
+a {
     color: #333;
     text-decoration: none;
 }
 
-img{
+img {
     align-self: center;
     height: 10px;
     width: 15px;
 }
 
+ul {
+    list-style-type: none;
+}
+
+li {
+    padding-bottom: 20px;
+}
+
+.creator-container {
+    width: 100%;
+    margin-inline: auto;
+    position: relative;
+    height: 100px;
+    margin-top: 5rem;
+    overflow: hidden;
+    mask-image: linear-gradient(to right,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 0));
+}
+
+.rectangle {
+    width: 200px;
+    height: 50px;
+    background-color: #17b5c7;
+    border-radius: 6px;
+    position: absolute;
+    left: max(calc(200px * 4), 100%);
+    animation-name: scrollLeft;
+    animation-duration: 15s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes scrollLeft {
+    to {
+        left: -200px;
+    }
+}
+
+.lovis {
+    animation-delay: calc(15s / 4 * (4 - 1) * -1);
+}
+
+.amber {
+    animation-delay: calc(15s / 4 * (4 - 2) * -1);
+}
+
+.timo {
+    animation-delay: calc(15s / 4 * (4 - 3) * -1);
+}
+
+.devrim {
+    animation-delay: calc(15s / 4 * (4 - 4) * -1);
+}

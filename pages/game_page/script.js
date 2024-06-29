@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const maxFPS = 1000 / 120; // 1000 Milliseconds / 120 fps = refreshTime
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-
+    
 
 
     let bird = {
@@ -74,6 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
             pipe.x -= 4;
         });
 
+        
+
         pipes = pipes.filter(pipe => pipe.x + pipeWidth > 0);
 
 
@@ -106,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showEndScreen() {
+        canvas.style.animationPlayState = 'paused';
         finalScore.textContent = `Dein Score: ${score}`;
         saveHighscore(playerName, score).then(() => {
             fetchHighscores().then(highscores => {
@@ -121,6 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
         pipes = [];
         frame = 0;
         score = 0;
+        gameOver = false;
+        canvas.style.animationPlayState = 'running';
+        endScreen.style.display = 'none';
     }
 
     function draw() {
@@ -177,11 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     restartGameButton.addEventListener('click', function () {
-        bird.y = 150;
-        bird.velocity = 0;
-        score = 0;
-        gameOver = false;
-        endScreen.style.display = 'none';
         reset();
         gameLoop();
     });

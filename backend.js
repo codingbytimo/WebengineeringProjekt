@@ -27,6 +27,10 @@ app.get("/game_page", (_req, res) => {
     res.send(eta.render("./index.html"));
 });
 
+app.get("/impressum", (_req, test) =>{
+    test.send(eta.render("./index.html"))
+})
+
 // Highscore speichern
 app.post('/highscores', (req, res) => {
     const { name, score } = req.body;

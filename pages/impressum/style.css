@@ -1,0 +1,21 @@
+body {
+    background: linear-gradient(135deg, #70c5ce, #c3cfe2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    padding: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    text-align: center;
+    background: rgba(198, 226, 222, 0.76);
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}

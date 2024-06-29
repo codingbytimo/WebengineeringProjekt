@@ -16,8 +16,11 @@ h1 {
 canvas {
     border-radius:1rem;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.04);
+    background: url("./resources/background.png") repeat-x;
+    background-size: cover;
     backdrop-filter: blur(5px);
+    animation: scroll 690s linear infinite;
+    animation-play-state: running;
 }
 
 #loginForm, #endScreen {
@@ -58,4 +61,13 @@ button:hover {
 
 #name:hover{
     box-shadow: 5px 5px 5px -3px #000000;
+}
+
+@keyframes scroll {
+    from {
+        background-position: 0;
+    }
+    to {
+        background-position: 10000%;
+    }
 }
